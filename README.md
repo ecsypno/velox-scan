@@ -13,20 +13,20 @@ Prerequisites:
 * [Docker Compose](https://docs.docker.com/compose/)
 
 ```bash
-git clone https://github.com/scnr/installer.git codename-scnr-installer
-cd codename-scnr-installer
+git clone https://github.com/ecsypno/velox-scan.git velox-scan
+cd velox-scan
 
 docker compose up -d --build # Start the services.
 # "docker-compose" with the dash may be required on some systems.
 
-docker exec -it codename-scnr-app-1 bash # Connect to the container.
+docker exec -it velox-scan-app-1 bash # Connect to the container.
 
 # From within the container:
 ./setup.sh # Install Velox Scan over the network.
 ```
 _In some Linux distributions, you may need to preface the `docker` commands with `sudo`._
 
-You can now run Velox Scan by using the executables under the `scnr-v*/bin` directory.
+You can now run Velox Scan by using the executables under the `velox-scan-v*/bin` directory.
 
 1. For a CLI scan you can run `bin/scnr URL`.
 2. You can use Velox Scan Pro by running `bin/scnr_pro`.
@@ -52,7 +52,7 @@ To install run the following command in a terminal of your choice:
 bash -c "$(curl -sSL https://get.ecsypno.com/scnr)"
 ```
 
-You can now run Velox Scan by using the executables under the `scnr-v*/bin` directory.
+You can now run Velox Scan by using the executables under the `velox-scan-v*/bin` directory.
 
 1. For a CLI scan you can run `bin/scnr URL`.
 2. You can use Velox Scan Pro by running `bin/scnr_pro`
@@ -94,7 +94,7 @@ From the Velox Scan package directory:
 
 ## Manual installation
 
-1. Download the [latest package](https://github.com/scnr/installer/releases).
+1. Download the [latest package](https://github.com/ecsypno/velox-scan/releases).
 2. Extract.
 
 You can now run Velox Scan by using the executables under the `bin/` directory.
