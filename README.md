@@ -1,6 +1,6 @@
-# Codename SCNR Installer
+# Velox Scan Installer
 
-Installation instructions for [Codename SCNR](https://ecsypno.com/pages/codename-scnr):
+Installation instructions for [Velox Scan](https://ecsypno.com/pages/codename-scnr):
 
 * [Docker installation](#docker-installation) -- for Mac OSX, Linux and MS Windows. _(recommended)_
 * [Automated installation](#automated-installation) -- for Linux.
@@ -22,14 +22,14 @@ docker compose up -d --build # Start the services.
 docker exec -it codename-scnr-app-1 bash # Connect to the container.
 
 # From within the container:
-./setup.sh # Install Codename SCNR over the network.
+./setup.sh # Install Velox Scan over the network.
 ```
 _In some Linux distributions, you may need to preface the `docker` commands with `sudo`._
 
-You can now run Codename SCNR by using the executables under the `scnr-v*/bin` directory.
+You can now run Velox Scan by using the executables under the `scnr-v*/bin` directory.
 
 1. For a CLI scan you can run `bin/scnr URL`.
-2. You can use Codename SCNR Pro by running `bin/scnr_pro`.
+2. You can use Velox Scan Pro by running `bin/scnr_pro`.
 
 For more information please consult the [documentation](https://documentation.ecsypno.com/scnr/).
 
@@ -52,17 +52,17 @@ To install run the following command in a terminal of your choice:
 bash -c "$(curl -sSL https://get.ecsypno.com/scnr)"
 ```
 
-You can now run Codename SCNR by using the executables under the `scnr-v*/bin` directory.
+You can now run Velox Scan by using the executables under the `scnr-v*/bin` directory.
 
 1. For a CLI scan you can run `bin/scnr URL`.
-2. You can use Codename SCNR Pro by running `bin/scnr_pro`
+2. You can use Velox Scan Pro by running `bin/scnr_pro`
    1. Setting up PostgreSQL is recommended for production workloads.
 
 For more information please consult the [documentation](https://documentation.ecsypno.com/scnr/).
 
 ### PostgreSQL
 
-For a more reliable Codename SCNR Pro experience, it's best to configure it to use PostgreSQL.
+For a more reliable Velox Scan Pro experience, it's best to configure it to use PostgreSQL.
 
 Please exchange `secret` with a secure password in the role creation commands.
 
@@ -88,7 +88,7 @@ Now edit `~/.scnr/pro/config/database.yml` to change the password from `secret`.
 
 #### Setup
 
-From the Codename SCNR package directory:
+From the Velox Scan package directory:
 
     bin/scnr_pro_task db:create db:migrate db:seed
 
@@ -97,17 +97,17 @@ From the Codename SCNR package directory:
 1. Download the [latest package](https://github.com/scnr/installer/releases).
 2. Extract.
 
-You can now run Codename SCNR by using the executables under the `bin/` directory.
+You can now run Velox Scan by using the executables under the `bin/` directory.
 
 For a CLI scan you can run `bin/scnr URL`.
 
 For more information please consult the [documentation](https://documentation.ecsypno.com/scnr/).
 
-### Codename SCNR Pro (WebUI)
+### Velox Scan Pro (WebUI)
 
-You can run Codename SCNR Pro by running `bin/scnr_pro`.
+You can run Velox Scan Pro by running `bin/scnr_pro`.
 
-If you'd like to use the Codename SCNR WebUI, its database will need to be prepared.
+If you'd like to use the Velox Scan WebUI, its database will need to be prepared.
 
 Out of the box, the WebUI comes configured with [SQLite](https://sqlite.org/index.html), however,
 for better results and performance please switch to [PostgreSQL](https://www.postgresql.org/).
