@@ -1,10 +1,10 @@
-name: codename-scnr
+name: velox-scan
 services:
   app:
     build:
       dockerfile: Dockerfile
-    image: ecsypno/codename-scnr
-    working_dir: /home/codename-scnr
+    image: ecsypno/velox-scan
+    working_dir: /home/velox-scan
     stdin_open: true # docker run -i
     tty: true        # docker run -t
     ports:
