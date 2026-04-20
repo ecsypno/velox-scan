@@ -1,4 +1,4 @@
-# Velox Scan Installer
+![alt text](gfx/velox-scan-banner.png)
 
 Installation instructions for [Velox Scan](https://ecsypno.com/pages/codename-scnr):
 
