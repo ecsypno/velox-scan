@@ -1,8 +1,6 @@
 name: velox-scan
 services:
   app:
-    build:
-      dockerfile: Dockerfile
     image: ecsypno/velox-scan
     working_dir: /home/velox
     stdin_open: true # docker run -i

@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM --platform=linux/amd64 ubuntu:22.04
+FROM ubuntu:22.04
 
 RUN groupadd -g 1234 velox-group
 RUN useradd -m -u 1234 -g velox-group velox
