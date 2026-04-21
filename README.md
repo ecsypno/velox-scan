@@ -16,6 +16,7 @@ Prerequisites:
 git clone https://github.com/ecsypno/velox-scan.git velox-scan
 cd velox-scan
 
+docker compose pull
 docker compose up -d # Start the services.
 # "docker-compose" with the dash may be required on some systems.
 
