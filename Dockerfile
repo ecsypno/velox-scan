@@ -1,12 +1,12 @@
 # syntax=docker/dockerfile:1
 FROM --platform=linux/amd64 ubuntu:22.04
 
-RUN groupadd -g 1234 velox-scan-group
-RUN useradd -m -u 1234 -g velox-scan-group velox-scan
+RUN groupadd -g 1234 velox-group
+RUN useradd -m -u 1234 -g velox-group velox
 
-USER velox-scan
+USER velox
  
-WORKDIR /home/velox-scan-dir
+WORKDIR /home/velox
 
 RUN mkdir .scnr
 RUN echo '#!/usr/bin/env bash' > ./setup.sh
@@ -22,4 +22,4 @@ RUN apt-get install -y nano tzdata less curl libgconf-2-4 libatk1.0-0 libatk-bri
 ENV TZ=Etc/UTC
 RUN ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && dpkg-reconfigure -f noninteractive tzdata
 
-USER velox-scan
+USER velox
