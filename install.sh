@@ -334,11 +334,11 @@ under_maintenance() {
     exit
 }
 
-under_maintenance
+#under_maintenance
 
 reserved="
     scnr
-    Spectre-scan
+    spectre-scan
 "
 cwd="$(basename `pwd`)"
 
@@ -353,12 +353,12 @@ done
 print_eula
 
 latest_version=`curl -sL https://api.github.com/repos/ecsypno/spectre-scan/releases/latest | grep -oP '(?<="tag_name": ")[^"]+' | tr -d "\r\n"`
-scnr_url="https://github.com/ecsypno/Spectre-scan/releases/download/$latest_version/spectre-scan-v$latest_version-$(operating_system)-$(architecture).tar.gz"
+scnr_url="https://github.com/ecsypno/spectre-scan/releases/download/$latest_version/spectre-scan-v$latest_version-$(operating_system)-$(architecture).tar.gz"
 scnr_dir="./spectre-scan-v$latest_version"
 scnr_package="./spectre-scan-v$latest_version.tar.gz"
 scnr_db_config="$scnr_dir/.system/scnr-ui-pro/config/database.yml"
 scnr_license_file="$HOME/.scnr/license.key"
-log=./Spectre-scan.install.log
+log=./spectre-scan.install.log
 
 echo
 
@@ -449,7 +449,7 @@ if [[ $scnr_edition == "trial" || $scnr_edition == "pro" || $scnr_edition == "en
   echo "* To use Spectre Scan Pro you can run: $scnr_dir/bin/scnr_pro"
 
   if [[ "$1" != "docker" ]]; then
-    echo "  * For a better experience please setup PostreSQL: https://github.com/ecsypno/Spectre-scan/installer#postgresql"
+    echo "  * For a better experience please setup PostreSQL: https://github.com/ecsypno/spectre-scan/installer#postgresql"
   fi
 fi
 
