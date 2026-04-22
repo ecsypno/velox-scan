@@ -26,7 +26,7 @@ docker exec -it spectre-scan-app-1 bash # Connect to the container.
 ```
 _In some Linux distributions, you may need to preface the `docker` commands with `sudo`._
 
-You can now run Spectre Scan by using the executables under the `Spectre-scan-v*/bin` directory.
+You can now run Spectre Scan by using the executables under the `spectre-scan-v*/bin` directory.
 
 1. For a CLI scan you can run `bin/scnr URL`.
 2. You can use Spectre Scan Pro by running `bin/scnr_pro`.
