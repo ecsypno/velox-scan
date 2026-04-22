@@ -13,13 +13,13 @@ Prerequisites:
 * [Docker Compose](https://docs.docker.com/compose/)
 
 ```bash
-wget https://raw.githubusercontent.com/ecsypno/Spectre-scan/refs/heads/main/docker-compose.yml
+wget https://raw.githubusercontent.com/ecsypno/spectre-scan/refs/heads/main/docker-compose.yml
 
 docker compose pull
 docker compose up -d # Start the services.
 # "docker-compose" with the dash may be required on some systems.
 
-docker exec -it Spectre-scan-app-1 bash # Connect to the container.
+docker exec -it spectre-scan-app-1 bash # Connect to the container.
 
 # From within the container:
 ./setup.sh # Install Spectre Scan over the network.
