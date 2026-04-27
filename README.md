@@ -102,6 +102,7 @@ From the Spectre Scan package directory:
 
 1. Download the [latest package](https://github.com/ecsypno/spectre-scan/releases).
 2. Extract.
+3. Activate: `bin/scnr_activate [LICENSE_KEY]`
 
 You can now run Spectre Scan by using the executables under the `bin/` directory.
 
