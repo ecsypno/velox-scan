@@ -8,10 +8,28 @@ USER spectre
  
 WORKDIR /home/spectre
 
-RUN mkdir .scnr
 RUN echo '#!/usr/bin/env bash' > ./setup.sh
-RUN echo 'bash -c "$(curl -sSL https://get.ecsypno.com/scnr)" _ docker' >> ./setup.sh
+RUN echo 'bash -c "$(curl -sSL https://spectre-scan.sh)"' >> ./setup.sh
 RUN chmod +x ./setup.sh
+
+# Auto-run setup on the first interactive shell. Touch a semaphore once
+# attempted so we don't loop on partial installs / rerun on every exec.
+# Override with `docker compose run -e SKIP_SETUP=1 app bash`.
+RUN cat >> ~/.bashrc <<'EOF'
+
+if [[ -z "$SKIP_SETUP" ]] && [[ $- == *i* ]] && [[ ! -e "$HOME/.setup-attempted" ]]; then
+    touch "$HOME/.setup-attempted"
+    echo "Spectre Scan not installed — running setup..."
+    # Trap INT so a Ctrl+C during setup still removes the semaphore, otherwise
+    # bash aborts the rest of this block before the failure branch runs.
+    trap 'rm -f "$HOME/.setup-attempted"; trap - INT' INT
+    if ! "$HOME/setup.sh"; then
+        rm -f "$HOME/.setup-attempted"
+        echo "Setup failed. Re-enter the shell to retry or re-run ./setup.sh." >&2
+    fi
+    trap - INT
+fi
+EOF
 
 USER root
 

@@ -6,23 +6,12 @@ services:
     working_dir: /home/spectre
     stdin_open: true # docker run -i
     tty: true        # docker run -t
+    # Keep the container alive without burning an interactive bash as PID 1
+    # (which would prematurely fire ~/.bashrc and the auto-setup block before
+    # the user has a chance to enter via `docker compose exec app bash`).
+    command: ["tail", "-f", "/dev/null"]
     ports:
       - 9292:9292 # Pro WebUI.
       - 7331:7331 # Free.
       - 7332:7332 # Free.
       - 7333:7333 # Free.
-  db:
-    image: postgres
-    restart: always
-    environment:
-      PGUSER: root
-      POSTGRES_DB: scnr_pro_production
-      POSTGRES_USER: scnr-pro
-      POSTGRES_PASSWORD: secret
-    volumes:
-      - ./spectre-scan-db:/var/lib/postgresql
-    healthcheck:
-      test: [ "CMD", "pg_isready", "-q", "-d", "scnr_pro_production", "-U", "scnr-pro" ]
-      interval: 1s
-      timeout: 5s
-      retries: 10
