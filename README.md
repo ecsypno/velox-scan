@@ -8,6 +8,7 @@ Installation instructions for [Spectre Scan](https://ecsypno.com/pages/codename-
 * [Automated installation](#automated-installation) -- for Linux.
 * [Manual installation](#manual-installation) -- for Linux.
 * [Dependencies for headless environments or WSL](#dependencies-for-headless-environments-or-wsl)
+* [Environment variables](#environment-variables) -- for ops, air-gapped, multi-volume layouts.
 
 **Enterprise customers requiring the client utilities to manage the [Scheduler](https://documentation.ecsypno.com/scnr/deployment/distributed/scheduler.html)
 or [Agent](https://documentation.ecsypno.com/scnr/deployment/distributed/agent.html) can simply download the
@@ -82,6 +83,56 @@ sudo apt-get install -y libgconf-2-4 libatk1.0-0 libatk-bridge2.0-0 \
   libgdk-pixbuf2.0-0 libgtk-3-0 libgbm-dev libnss3-dev libxss-dev libasound2
 
 ```
+
+## Environment variables
+
+These can be exported **before** running the installer (or before the first
+invocation of any `bin/spectre*` executable) to override defaults. Most users
+won't need any of them — they exist for ops folks running on shared boxes,
+behind proxies, with separate disks, or in air-gapped environments.
+
+### Home directory
+
+| Variable | Default | What it does |
+|---|---|---|
+| `SPECTRE_HOME` | `~/.spectre` | Single root for **all** Spectre Scan user-scoped state — the encrypted `license` blob and plaintext `license.key`, scan reports, snapshots, engine logs, the embedded PostgreSQL data directory, and the `latest_version` stamp written by the auto-update check. Override this to put everything on a different volume (e.g. `SPECTRE_HOME=/mnt/scratch/spectre`). |
+
+### Logs
+
+| Variable | Default | What it does |
+|---|---|---|
+| `SPECTRE_ENGINE_LOG_DIR` | `$SPECTRE_HOME/logs/engine` | Engine-side run logs. |
+| `SPECTRE_PRO_LOG_DIR` | `$SPECTRE_HOME/logs/pro` | Spectre Scan Pro (Rails) + bundled PostgreSQL logs. |
+
+### Spectre Scan Pro database (embedded PostgreSQL)
+
+| Variable | Default | What it does |
+|---|---|---|
+| `SPECTRE_PRO_DB_DIR` | `$SPECTRE_HOME/pro/db` | PostgreSQL cluster data dir (`initdb -D`). Move this to a faster / larger volume for big scans. |
+| `SPECTRE_PRO_DB_SOCKET_DIR` | `$SPECTRE_HOME/pro/run` | Unix socket dir Pro connects on. |
+| `SPECTRE_PRO_DB_NAME` | `spectre_pro` | Database name created on first start. |
+| `SPECTRE_PRO_PG_PASSWD` | *(none)* | Password for the Pro DB user. The Rails app reads this on startup; required when running `assets:precompile` or any production boot. |
+
+### Engine
+
+| Variable | Default | What it does |
+|---|---|---|
+| `SPECTRE_CHECK_SERVER` | `http://checks.ecsypno.com` | URL of the SSRF check server. Override it for air-gapped installs running their own `bin/spectre_check_server` — see the [air-gapped guide](https://documentation.ecsypno.com/scnr/how-to/run-air-gapped.html). |
+| `SPECTRE_ENGINE_PROFILE` | *(unset)* | Set to anything truthy to enable the engine's profiling output (verbose, dev/debug only). |
+
+### Networking
+
+| Variable | Default | What it does |
+|---|---|---|
+| `SPECTRE_PROXY` | *(unset)* | Forwarded as `HTTP_PROXY` / `http_proxy` for the build's outbound calls (release feed lookup, dependency fetches, license server pings). |
+| `CURL_CA_BUNDLE` / `SSL_CERT_FILE` | bundled `etc/ssl/ca/cacert.pem` | Override if you need to trust an enterprise / corporate CA bundle. |
+
+### Standard
+
+| Variable | What it does |
+|---|---|
+| `TMPDIR` | Where engine snapshot/work dirs are created (`Dir.mktmpdir`). Set to a large volume if your runs hit "no space left on device". |
+| `TZ` | Falls into `Setting.detect_system_timezone` chain (after `Rails.application.config.time_zone` / `/etc/timezone` / `/etc/localtime`) when nothing else resolves. |
 
 ## License
 
